@@ -2,7 +2,7 @@
 <html>
 
 <body>
-   <p>Forum</p>
+   <p>Forum2</p>
 
     <!-- Include the Firebase JavaScript SDK using ESM syntax -->
     <script type="module">
@@ -49,7 +49,7 @@
                 console.log('Error getting document:', error);
             });
        
-       const collectionRef3 = collection(db, 'user3');
+        const user3DocRef = doc(collectionRef, 'user3'); // Reference to the 'user3' document within 'name' collection
 
         // Data for the new user3 document
         const newUser = {
@@ -57,13 +57,13 @@
             last: "Doe"
         };
 
-        // Add a new document to the collection with the name 'user3'
-        addDoc(collectionRef3, newUser)
-            .then((docRef) => {
-                console.log('Document added with ID: ', docRef.id);
+        // Set the data for the 'user3' document
+        setDoc(user3DocRef, newUser)
+            .then(() => {
+                console.log('Document "user3" written successfully');
             })
             .catch((error) => {
-                console.error('Error adding document: ', error);
+                console.error('Error writing document: ', error);
             });
     </script>
 </body>
