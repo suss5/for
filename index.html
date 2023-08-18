@@ -1,32 +1,48 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <!-- ...other head content... -->
-    <!-- Include the Firebase JavaScript SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore.js"></script>
-    <!-- ...other head content... -->
-</head>
 <body>
-   <h1>Forum</h1>
-  <p>Welcome to myForum</p>
-    <script>
-        // Initialize Firebase with your configuration
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
-        firebase.initializeApp(firebaseConfig);
+<p>MyDemo</p>
+    <script type="module">
+        // Import the functions you need from the SDKs
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-analytics.js";
+        import { firestore } from 'https://www.gstatic.com/firebasejs/10.2.0/firebase-firestore.js';
 
-        // Now you can use the Firebase services like authentication and Firestore
-        // For example:
-        const firestore = firebase.firestore();
-        const auth = firebase.auth();
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDD3KXh4ZCUGEBz60DvT_uf9WoX5WsOaNM",
+            authDomain: "mytest-abc123.firebaseapp.com",
+            projectId: "mytest-abc123",
+            storageBucket: "mytest-abc123.appspot.com",
+            messagingSenderId: "786493299627",
+            appId: "1:786493299627:web:78bb525b6d7210220a90ee",
+            measurementId: "G-S3MBVPEV94"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+
+        // Reference to Firestore
+        const db = firestore(app);
+
+        // Reference to the 'name' collection and the 'user1' document
+        const collectionRef = db.collection('name');
+        const docRef = collectionRef.doc('user1');
+
+        // Get the document data
+        docRef.get().then((doc) => {
+            if (doc.exists) {
+                const data = doc.data();
+                console.log('Document data:', data);
+                console.log('First Name:', data.first);
+                console.log('Last Name:', data.last);
+            } else {
+                console.log('No such document!');
+            }
+        }).catch((error) => {
+            console.log('Error getting document:', error);
+        });
     </script>
 </body>
 </html>
