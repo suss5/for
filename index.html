@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html>
+
 <body>
-<p>MyDemo</p>
+   <p>MyForum</p>
+
+    <!-- Include the Firebase JavaScript SDK using ESM syntax -->
     <script type="module">
         // Import the functions you need from the SDKs
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-analytics.js";
-        import { firestore } from 'https://www.gstatic.com/firebasejs/10.2.0/firebase-firestore.js';
+        import { getFirestore, collection, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-firestore.js";
 
         // Your web app's Firebase configuration
         const firebaseConfig = {
@@ -24,25 +27,27 @@
         const analytics = getAnalytics(app);
 
         // Reference to Firestore
-        const db = firestore(app);
+        const db = getFirestore();
 
         // Reference to the 'name' collection and the 'user1' document
-        const collectionRef = db.collection('name');
-        const docRef = collectionRef.doc('user1');
+        const collectionRef = collection(db, 'name');
+        const docRef = doc(collectionRef, 'user1');
 
         // Get the document data
-        docRef.get().then((doc) => {
-            if (doc.exists) {
-                const data = doc.data();
-                console.log('Document data:', data);
-                console.log('First Name:', data.first);
-                console.log('Last Name:', data.last);
-            } else {
-                console.log('No such document!');
-            }
-        }).catch((error) => {
-            console.log('Error getting document:', error);
-        });
+        getDoc(docRef)
+            .then((doc) => {
+                if (doc.exists()) {
+                    const data = doc.data();
+                    console.log('Document data:', data);
+                    console.log('First Name:', data.first);
+                    console.log('Last Name:', data.last);
+                } else {
+                    console.log('No such document!');
+                }
+            })
+            .catch((error) => {
+                console.log('Error getting document:', error);
+            });
     </script>
 </body>
 </html>
