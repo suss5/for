@@ -2,7 +2,7 @@
 <html>
 
 <body>
-   <p>Forum3</p>
+   <p>Forum5</p>
 
     <!-- Include the Firebase JavaScript SDK using ESM syntax -->
     <script type="module">
@@ -31,24 +31,26 @@
 
         // Reference to the 'name' collection and the 'user1' document
         const collectionRef = collection(db, 'name');
-        const docRef = doc(collectionRef, 'user1');
+      
 
-        // Get the document data
-        getDoc(docRef)
-            .then((doc) => {
-                if (doc.exists()) {
-                    const data = doc.data();
-                    console.log('Document data:', data);
-                    console.log('First Name:', data.first);
-                    console.log('Last Name:', data.last);
-                } else {
-                    console.log('No such document!');
-                }
-            })
-            .catch((error) => {
-                console.log('Error getting document:', error);
-            });
-       
+// Query for all documents in the collection
+getDocs(collectionRef)
+  .then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      if (doc.exists()) {
+        const data = doc.data();
+        console.log('Document data:', data);
+        console.log('First Name:', data.first);
+        console.log('Last Name:', data.last);
+      } else {
+        console.log('No such document!');
+      }
+    });
+  })
+  .catch((error) => {
+    console.log('Error getting documents:', error);
+  });
+
         const user3DocRef = doc(collectionRef, 'user3'); // Reference to the 'user3' document within 'name' collection
 
         // Data for the new user3 document
