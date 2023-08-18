@@ -10,6 +10,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-analytics.js";
         import { getFirestore, collection, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-firestore.js";
+ import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-firestore.js";
 
         // Your web app's Firebase configuration
         const firebaseConfig = {
@@ -47,6 +48,23 @@
             })
             .catch((error) => {
                 console.log('Error getting document:', error);
+            });
+       
+       const collectionRef3 = collection(db, 'user3');
+
+        // Data for the new user3 document
+        const newUser = {
+            first: "John",
+            last: "Doe"
+        };
+
+        // Add a new document to the collection with the name 'user3'
+        addDoc(collectionRef3, newUser)
+            .then((docRef) => {
+                console.log('Document added with ID: ', docRef.id);
+            })
+            .catch((error) => {
+                console.error('Error adding document: ', error);
             });
     </script>
 </body>
