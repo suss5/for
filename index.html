@@ -10,29 +10,61 @@
   <script src="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.js"></script>
   <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.css" />
 
-  <!-- Include the Firebase JavaScript SDK -->
-  <script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-firestore.js"></script>
+  <!-- Include the Firebase JavaScript SDK (Legacy) -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 
   <script>
     // Your web app's Firebase configuration
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_AUTH_DOMAIN",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_STORAGE_BUCKET",
-      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-      appId: "YOUR_APP_ID",
-      measurementId: "YOUR_MEASUREMENT_ID"
+    var firebaseConfig = {
+  apiKey: "AIzaSyDD3KXh4ZCUGEBz60DvT_uf9WoX5WsOaNM",
+      authDomain: "mytest-abc123.firebaseapp.com",
+      projectId: "mytest-abc123",
+      storageBucket: "mytest-abc123.appspot.com",
+      messagingSenderId: "786493299627",
+      appId: "1:786493299627:web:78bb525b6d7210220a90ee",
+      measurementId: "G-S3MBVPEV94"  
     };
 
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
 
     // Create a FirebaseUI instance
-    const ui = new firebaseui.auth.AuthUI(firebase.auth());
+    var ui = new firebaseui.auth.AuthUI(firebase.auth());
 
     // FirebaseUI configuration
-    const uiConfig = {
+    var uiConfig = {
       signInOptions: [
-        firebase.auth.GoogleAuthProvider.PROVIDER
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID
+      ],
+      // Other configuration options if needed
+    };
+
+    // Start the FirebaseUI authentication process
+    ui.start('#firebaseui-auth-container', uiConfig);
+
+    // Reference to Firestore
+    var db = firebase.firestore();
+
+    // Reference to the 'name' collection and the 'user3' document
+    var collectionRef = db.collection('name');
+    var user3DocRef = collectionRef.doc('user3');
+
+    // Data for the new user3 document
+    var newUser = {
+      first: "John",
+      last: "Doe"
+    };
+
+    // Set the data for the 'user3' document
+    user3DocRef.set(newUser)
+      .then(function() {
+        console.log('Document "user3" written successfully');
+      })
+      .catch(function(error) {
+        console.error('Error writing document: ', error);
+      });
+  </script>
+</body>
+
+</html>
