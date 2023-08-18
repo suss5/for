@@ -2,7 +2,33 @@
 <html>
 
 <body>
-   <p>Forum5</p>
+   <p>Forum7</p>
+    <div id="firebaseui-auth-container"></div>
+  <div id="loader">Loading...</div>
+
+  <!-- Include the FirebaseUI library -->
+  <script src="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.css" />
+  
+  <!-- Your Firebase configuration and initialization script -->
+
+  <!-- Initialize the FirebaseUI instance -->
+  <script>
+    const ui = new firebaseui.auth.AuthUI(firebase.auth());
+
+    // FirebaseUI configuration
+    const uiConfig = {
+      signInOptions: [
+        // Add Google Sign-In option
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID
+      ],
+      // Other configuration options if needed
+    };
+
+    // Start the FirebaseUI authentication process
+    ui.start('#firebaseui-auth-container', uiConfig);
+  </script>
+
 
     <!-- Include the Firebase JavaScript SDK using ESM syntax -->
     <script type="module">
