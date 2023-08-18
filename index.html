@@ -2,7 +2,7 @@
 <html>
 
 <body>
-  <p>Forum7</p>
+  <p>Forum2</p>
   <div id="firebaseui-auth-container"></div>
   <div id="loader">Loading...</div>
 
@@ -14,11 +14,10 @@
   <script type="module">
     // Import the functions you need from the SDKs
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-app.js";
-    import { getFirestore, collection, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-firestore.js";
 
     // Your web app's Firebase configuration
     const firebaseConfig = {
-    apiKey: "AIzaSyDD3KXh4ZCUGEBz60DvT_uf9WoX5WsOaNM",
+        apiKey: "AIzaSyDD3KXh4ZCUGEBz60DvT_uf9WoX5WsOaNM",
       authDomain: "mytest-abc123.firebaseapp.com",
       projectId: "mytest-abc123",
       storageBucket: "mytest-abc123.appspot.com",
@@ -29,6 +28,16 @@
 
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
+
+    // Continue with the rest of your code here
+  </script>
+
+  <!-- Include the Firebase JavaScript SDK using non-ESM syntax -->
+  <script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-firestore.js"></script>
+
+  <script>
+    // Import the functions you need from the SDKs
+    import { getFirestore, collection, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-firestore.js";
 
     // Reference to Firestore
     const db = getFirestore();
