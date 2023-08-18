@@ -2,9 +2,13 @@
 <html>
 
 <body>
-  <p>Forum1</p>
+  <p>Forum7</p>
   <div id="firebaseui-auth-container"></div>
   <div id="loader">Loading...</div>
+
+  <!-- Include the FirebaseUI library with CommonJS syntax -->
+  <script src="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.css" />
 
   <!-- Include the Firebase JavaScript SDK using ESM syntax -->
   <script type="module">
@@ -14,7 +18,7 @@
 
     // Your web app's Firebase configuration
     const firebaseConfig = {
-         apiKey: "AIzaSyDD3KXh4ZCUGEBz60DvT_uf9WoX5WsOaNM",
+    apiKey: "AIzaSyDD3KXh4ZCUGEBz60DvT_uf9WoX5WsOaNM",
       authDomain: "mytest-abc123.firebaseapp.com",
       projectId: "mytest-abc123",
       storageBucket: "mytest-abc123.appspot.com",
@@ -49,15 +53,10 @@
       });
   </script>
 
-  <!-- Include the FirebaseUI library -->
-  <script src="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.js"></script>
-  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.css" />
-
+  <!-- Continue with the rest of your FirebaseUI code here -->
   <script>
-    // Create a FirebaseUI instance
     const ui = new firebaseui.auth.AuthUI(firebase.auth());
 
-    // FirebaseUI configuration
     const uiConfig = {
       signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID
@@ -65,7 +64,6 @@
       // Other configuration options if needed
     };
 
-    // Start the FirebaseUI authentication process
     ui.start('#firebaseui-auth-container', uiConfig);
   </script>
 </body>
