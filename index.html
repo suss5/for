@@ -1,78 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Firebase Authentication</title>
-</head>
-<body>
-    <div id="auth-container">
-        <h1>Fireb Authentication</h1>
-        <div id="user-info">
-            <p>Loading...</p>
-        </div>
-        <button id="sign-out-button" style="display: none;">Sign Out</button>
-    </div>
-
-    <!-- Include Firebase JavaScript SDK via CDN -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
-
-    <!-- Include FirebaseUI via CDN -->
-    <script src="https://cdn.firebase.com/libs/firebaseui/4.8.0/firebaseui.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/4.8.0/firebaseui.css" />
-
-    <!-- Add Firebase configuration here -->
-    <script>
-        // Initialize Firebase
-        const firebaseConfig = {
-              apiKey: "AIzaSyDD3KXh4ZCUGEBz60DvT_uf9WoX5WsOaNM",
+  <title>Firebase Authentication</title>
+  
+  <!-- Add Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
+  
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+         apiKey: "AIzaSyDD3KXh4ZCUGEBz60DvT_uf9WoX5WsOaNM",
       authDomain: "mytest-abc123.firebaseapp.com",
       projectId: "mytest-abc123",
       storageBucket: "mytest-abc123.appspot.com",
       messagingSenderId: "786493299627",
       appId: "1:786493299627:web:78bb525b6d7210220a90ee",
       measurementId: "G-S3MBVPEV94"  
-        };
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+</head>
 
-        firebase.initializeApp(firebaseConfig);
+<body>
 
-        // Firebase UI configuration (optional)
-        // More info: https://github.com/firebase/firebaseui-web
-        const uiConfig = {
-            signInSuccessUrl: '/',
-            signInOptions: [
-                // List of authentication providers here (e.g., Google, Email/Password, etc.)
-                firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-            ],
-        };
+  <h1>Firebase Authentication</h1>
 
-        const authContainer = document.getElementById('auth-container');
-        const userDisplay = document.getElementById('user-info');
-        const signOutButton = document.getElementById('sign-out-button');
+  <button onclick="login()">Login</button>
 
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                // User is signed in.
-                userDisplay.innerHTML = `<p>Welcome, ${user.displayName}!</p>`;
-                signOutButton.style.display = 'block';
-            } else {
-                // No user is signed in.
-                userDisplay.innerHTML = `<p>Not signed in.</p>`;
-                signOutButton.style.display = 'none';
-            }
-        });
+  <script>
+    function login() {
+      var provider = new firebase.auth.GoogleAuthProvider();
+      firebase.auth().signInWithPopup(provider).then(function(result) {
+        // Do something with result
+        console.log(result);
+      }).catch(function(error) {
+        console.log(error);
+      });
+    }
+  </script>
 
-        // Initialize the FirebaseUI Widget using Firebase.
-        const ui = new firebaseui.auth.AuthUI(firebase.auth());
-
-        // Start the FirebaseUI login flow.
-        ui.start('#auth-container', uiConfig);
-
-        // Sign out button click handler
-        signOutButton.addEventListener('click', () => {
-            firebase.auth().signOut();
-        });
-    </script>
 </body>
 </html>
