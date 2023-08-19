@@ -33,7 +33,7 @@ function addPost() {
   const postsRef = collection(db, 'topic');
   addDoc(postsRef, {
     post: content,
-   user: userN
+   user: userN.value
   });
 
 }
