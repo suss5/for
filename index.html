@@ -8,7 +8,7 @@
 <textarea id="postContent" cols="50" placeholder="Content"></textarea>
 <textarea id="username" cols="15" placeholder="MyName"></textarea>
 <br>
-<canvas id="can"></canvas>
+<canvas id="can" width="200" height="40" style="border:2px solid #d3d3d3"></canvas>
 
    
 <div id="posts">
@@ -38,12 +38,12 @@ var postcount=0
 const postsEl = document.getElementById('posts');
 // Function to handle click
 function addPost() {
-   ctx.fillText("writing",10,50)
+   ctx.fillText("writing",10,20)
 getposts()
 setTimeout(writeposts,1000)
 }
 function clear(){
-   ctx.clearRect(0,0,200,200)
+   ctx.clearRect(0,0,200,40)
 }
 function writeposts(){
   const content = contentInput.value;
