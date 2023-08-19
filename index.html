@@ -6,7 +6,7 @@
    <br>
 <textarea id="postContent" cols="50" placeholder="Content"></textarea>
 <textarea id="username" cols="15" placeholder="MyName"></textarea>
-   <h1>SimpleForum</h1>
+   <h1>SimForum</h1>
 
     <!-- Include the Firebase JavaScript SDK using ESM syntax -->
     <script type="module">
@@ -34,8 +34,8 @@ function addPost() {
   addDoc(postsRef, {
     post: content,
    user: userN.value
-  });
-
+  }, (postcount+1) );
+getposts()
 }
 
        
@@ -59,17 +59,19 @@ const db = getFirestore();
 
 // Reference to the 'name' collection
 const collectionRef = collection(db, 'topic');
-
+getposts()
+function getposts(){
+   postcount=0
 // Query for all documents in the collection
 getDocs(collectionRef)
   .then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
       if (doc.exists()) {
         const data = doc.data();
-      
+      postcount++
        
           const container = document.createElement('div');
-  container.innerHTML = `<p>${data.user} -> ${data.post}</p>`;
+  container.innerHTML = `<p>${postcount} ${data.user} -> ${data.post}</p>`;
   
 document.body.appendChild(container);
       } else {
@@ -80,6 +82,7 @@ document.body.appendChild(container);
   .catch((error) => {
     console.log('Error getting documents:', error);
   });
+}
     </script>
 </body>
 </html>
