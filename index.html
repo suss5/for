@@ -1,45 +1,37 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Firebase Authentication</title>
-  
-  <!-- Add Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
-  
-  <script>
-    // Your web app's Firebase configuration
-    var firebaseConfig = {
-         apiKey: "AIzaSyDD3KXh4ZCUGEBz60DvT_uf9WoX5WsOaNM",
-      authDomain: "mytest-abc123.firebaseapp.com",
-      projectId: "mytest-abc123",
-      storageBucket: "mytest-abc123.appspot.com",
-      messagingSenderId: "786493299627",
-      appId: "1:786493299627:web:78bb525b6d7210220a90ee",
-      measurementId: "G-S3MBVPEV94"  
-    };
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-  </script>
-</head>
+// Import the functions you need from the SDKs
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-analytics.js";
+import { getFirestore, collection, doc, getDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-firestore.js";
 
-<body>
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  // ...
+};
 
-  <h1>Firebase Authentication</h1>
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
-  <button onclick="login()">Login</button>
+// Reference to Firestore
+const db = getFirestore();
 
-  <script>
-    function login() {
-      var provider = new firebase.auth.GoogleAuthProvider();
-      firebase.auth().signInWithPopup(provider).then(function(result) {
-        // Do something with result
-        console.log(result);
-      }).catch(function(error) {
-        console.log(error);
-      });
-    }
-  </script>
+// Reference to the 'name' collection
+const collectionRef = collection(db, 'name');
 
-</body>
-</html>
+// Query for all documents in the collection
+getDocs(collectionRef)
+  .then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      if (doc.exists()) {
+        const data = doc.data();
+        console.log('Document data:', data);
+        console.log('First Name:', data.first);
+        console.log('Last Name:', data.last);
+      } else {
+        console.log('No such document!');
+      }
+    });
+  })
+  .catch((error) => {
+    console.log('Error getting documents:', error);
+  });
