@@ -7,7 +7,9 @@
    <br>
 <textarea id="postContent" cols="50" placeholder="Content"></textarea>
 <textarea id="username" cols="15" placeholder="MyName"></textarea>
-   <h1>SimFor</h1>
+<br>
+<canvas id="can"></canvas>
+
    
 <div id="posts">
    <h1>Loading...</h1>
@@ -18,7 +20,8 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-analytics.js";
 import { getFirestore, collection, doc, getDoc, addDoc, setDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-firestore.js";
-
+  const c = document.getElementById('can');
+    const ctx = canvas.getContext('2d');
        /* Listen for changes
 const postsQuery = query(collection(db, 'topic'));
 onSnapshot(postsQuery, snapshot => {
@@ -35,8 +38,12 @@ var postcount=0
 const postsEl = document.getElementById('posts');
 // Function to handle click
 function addPost() {
+   ctx.fillText("writing",10,50)
 getposts()
 setTimeout(writeposts,1000)
+}
+function clear(){
+   ctx.clearRect(0,0,200,200)
 }
 function writeposts(){
   const content = contentInput.value;
@@ -49,6 +56,7 @@ function writeposts(){
     post: content,
    user: userN.value
   } );
+setTimeout(clear,100)
 setTimeout(getposts,1000)
 }
 
@@ -74,6 +82,21 @@ const db = getFirestore();
 // Reference to the 'name' collection
 const collectionRef = collection(db, 'topic');
 getposts()
+setInterval(testposts,5000)
+function testposts(){
+   getDocs(collectionRef)
+  .then((querySnapshot) => {
+    // Get the number of documents in the collection
+
+    // Now you can decide whether to reload the posts based on your logic
+    if (querySnapshot.size> postcount) {
+      getposts();
+    }
+  })
+  .catch((error) => {
+    console.error('Error counting documents: ', error);
+  });
+}
 function getposts(){
    postcount=0
 // Query for all documents in the collection
