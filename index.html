@@ -2,7 +2,7 @@
 <html>
 
 <body>
-   <p>Forum3</p>
+   <p>Forum4</p>
 
     <!-- Include the Firebase JavaScript SDK using ESM syntax -->
     <script type="module">
@@ -30,7 +30,7 @@ const analytics = getAnalytics(app);
 const db = getFirestore();
 
 // Reference to the 'name' collection
-const collectionRef = collection(db, 'topics');
+const collectionRef = collection(db, 'topic');
 
 // Query for all documents in the collection
 getDocs(collectionRef)
