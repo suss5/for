@@ -6,8 +6,8 @@
    <br>
 <textarea id="postContent" cols="50" placeholder="Content"></textarea>
 <textarea id="username" cols="15" placeholder="MyName"></textarea>
-   <h1>SForm</h1>
-
+   <h1>SForum</h1>
+<div id="posts"></div>
     <!-- Include the Firebase JavaScript SDK using ESM syntax -->
     <script type="module">
 // Import the functions you need from the SDKs
@@ -22,11 +22,9 @@ const userN = document.getElementById('username');
 // Add event listener to button 
 addPostBtn.addEventListener('click', addPost);
 var postcount=0
+const postsEl = document.getElementById('posts');
 // Function to handle click
 function addPost() {
-
-  // Get values
-
   const content = contentInput.value;
 
   // Add to Firestore
@@ -65,6 +63,14 @@ getposts()
 function getposts(){
    postcount=0
 // Query for all documents in the collection
+
+
+// Clear innerHTML  
+postsEl.innerHTML = ''; 
+
+
+// Append to wrapper div 
+
 getDocs(collectionRef)
   .then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
@@ -75,7 +81,7 @@ getDocs(collectionRef)
           const container = document.createElement('div');
   container.innerHTML = `<p>${postcount} ${data.user} -> ${data.post}</p>`;
   
-document.body.appendChild(container);
+postsEl.appendChild(container);
       } else {
         console.log('No such document!');
       }
