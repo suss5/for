@@ -1,70 +1,72 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Authentication</title>
+</head>
 <body>
-  <p>Forum</p>
-  <div id="firebaseui-auth-container"></div>
-  <div id="loader">Loading...</div>
+    <div id="auth-container">
+        <h1>Firebase Authentication</h1>
+        <div id="user-info">
+            <p>Loading...</p>
+        </div>
+        <button id="sign-out-button" style="display: none;">Sign Out</button>
+    </div>
 
-  <!-- Include the FirebaseUI library -->
-  <script src="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.js"></script>
-  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.css" />
-
-  <!-- Include the Firebase JavaScript SDK (Legacy) -->
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-
-  <script>
-    // Your web app's Firebase configuration
-    var firebaseConfig = {
-  apiKey: "AIzaSyDD3KXh4ZCUGEBz60DvT_uf9WoX5WsOaNM",
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js"></script>
+    <!-- Add Firebase configuration here -->
+    <script>
+        // Initialize Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDD3KXh4ZCUGEBz60DvT_uf9WoX5WsOaNM",
       authDomain: "mytest-abc123.firebaseapp.com",
       projectId: "mytest-abc123",
       storageBucket: "mytest-abc123.appspot.com",
       messagingSenderId: "786493299627",
       appId: "1:786493299627:web:78bb525b6d7210220a90ee",
       measurementId: "G-S3MBVPEV94"  
-    };
+        };
 
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
+        firebase.initializeApp(firebaseConfig);
 
-    // Create a FirebaseUI instance
-    var ui = new firebaseui.auth.AuthUI(firebase.auth());
+        // Firebase UI configuration (optional)
+        // More info: https://github.com/firebase/firebaseui-web
+        const uiConfig = {
+            signInSuccessUrl: '/',
+            signInOptions: [
+                // List of authentication providers here (e.g., Google, Email/Password, etc.)
+                firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            ],
+        };
 
-    // FirebaseUI configuration
-    var uiConfig = {
-      signInOptions: [
-        firebase.auth.GoogleAuthProvider.PROVIDER_ID
-      ],
-      // Other configuration options if needed
-    };
+        const authContainer = document.getElementById('auth-container');
+        const userDisplay = document.getElementById('user-info');
+        const signOutButton = document.getElementById('sign-out-button');
 
-    // Start the FirebaseUI authentication process
-    ui.start('#firebaseui-auth-container', uiConfig);
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                // User is signed in.
+                userDisplay.innerHTML = `<p>Welcome, ${user.displayName}!</p>`;
+                signOutButton.style.display = 'block';
+            } else {
+                // No user is signed in.
+                userDisplay.innerHTML = `<p>Not signed in.</p>`;
+                signOutButton.style.display = 'none';
+            }
+        });
 
-    // Reference to Firestore
-    var db = firebase.firestore();
+        // Initialize the FirebaseUI Widget using Firebase.
+        const ui = new firebaseui.auth.AuthUI(firebase.auth());
 
-    // Reference to the 'name' collection and the 'user3' document
-    var collectionRef = db.collection('name');
-    var user3DocRef = collectionRef.doc('user3');
+        // Start the FirebaseUI login flow.
+        ui.start('#auth-container', uiConfig);
 
-    // Data for the new user3 document
-    var newUser = {
-      first: "John",
-      last: "Doe"
-    };
-
-    // Set the data for the 'user3' document
-    user3DocRef.set(newUser)
-      .then(function() {
-        console.log('Document "user3" written successfully');
-      })
-      .catch(function(error) {
-        console.error('Error writing document: ', error);
-      });
-  </script>
+        // Sign out button click handler
+        signOutButton.addEventListener('click', () => {
+            firebase.auth().signOut();
+        });
+    </script>
 </body>
-
 </html>
