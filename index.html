@@ -21,7 +21,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.2.0/firebas
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-analytics.js";
 import { getFirestore, collection, doc, getDoc, addDoc, setDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-firestore.js";
   const c = document.getElementById('can');
-    const ctx = canvas.getContext('2d');
+    const ctx = c.getContext('2d');
        /* Listen for changes
 const postsQuery = query(collection(db, 'topic'));
 onSnapshot(postsQuery, snapshot => {
