@@ -2,13 +2,13 @@
 <html>
 
 <body>
-   <div id="fixed">
+   
    <button id="addPost">Add Post</button>
    <br>
 <textarea id="postContent" cols="50" placeholder="Content"></textarea>
 <textarea id="username" cols="15" placeholder="MyName"></textarea>
-   <h1>SForums</h1>
-   </div>
+   <h1>SForu</h1>
+   
 <div id="posts">
    <h1>first</h1>
 </div>
@@ -81,7 +81,7 @@ getDocs(collectionRef)
       if (doc.exists()) {
         const data = doc.data();
       postcount++;
-       document.body.innerHTML = '';
+    
           const container = document.createElement('div');
   container.innerHTML = `<p>${postcount} ${data.user} -> ${data.post}</p>`;
   
