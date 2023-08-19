@@ -1,0 +1,72 @@
+
+
+<!DOCTYPE html>
+<html>
+
+<body>
+  <p>Forum</p>
+  <div id="firebaseui-auth-container"></div>
+  <div id="loader">Loading...</div>
+
+  <!-- Include the FirebaseUI library -->
+  <script src="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.css" />
+
+  <!-- Include the Firebase JavaScript SDK (Legacy) -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+  apiKey: "AIzaSyDD3KXh4ZCUGEBz60DvT_uf9WoX5WsOaNM",
+      authDomain: "mytest-abc123.firebaseapp.com",
+      projectId: "mytest-abc123",
+      storageBucket: "mytest-abc123.appspot.com",
+      messagingSenderId: "786493299627",
+      appId: "1:786493299627:web:78bb525b6d7210220a90ee",
+      measurementId: "G-S3MBVPEV94"  
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Create a FirebaseUI instance
+    var ui = new firebaseui.auth.AuthUI(firebase.auth());
+
+    // FirebaseUI configuration
+    var uiConfig = {
+      signInOptions: [
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID
+      ],
+      // Other configuration options if needed
+    };
+
+    // Start the FirebaseUI authentication process
+    ui.start('#firebaseui-auth-container', uiConfig);
+
+    // Reference to Firestore
+    var db = firebase.firestore();
+
+    // Reference to the 'name' collection and the 'user3' document
+    var collectionRef = db.collection('name');
+    var user3DocRef = collectionRef.doc('user3');
+
+    // Data for the new user3 document
+    var newUser = {
+      first: "John",
+      last: "Doe"
+    };
+
+    // Set the data for the 'user3' document
+    user3DocRef.set(newUser)
+      .then(function() {
+        console.log('Document "user3" written successfully');
+      })
+      .catch(function(error) {
+        console.error('Error writing document: ', error);
+      });
+  </script>
+</body>
+
+</html>
