@@ -1,3 +1,11 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+   <p>Forum</p>
+
+    <!-- Include the Firebase JavaScript SDK using ESM syntax -->
+    <script type="module">
 // Import the functions you need from the SDKs
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-analytics.js";
@@ -35,3 +43,6 @@ getDocs(collectionRef)
   .catch((error) => {
     console.log('Error getting documents:', error);
   });
+    </script>
+</body>
+</html>
