@@ -2,7 +2,7 @@
 <html>
 
 <body>
-   <p>Forum2</p>
+   <p>Forum3</p>
 
     <!-- Include the Firebase JavaScript SDK using ESM syntax -->
     <script type="module">
@@ -38,10 +38,10 @@ getDocs(collectionRef)
     querySnapshot.forEach((doc) => {
       if (doc.exists()) {
         const data = doc.data();
-        console.log('Document data:', JSON.stringify(data) );
+      
        
           const container = document.createElement('div');
-  container.innerHTML = `<h1>${doc.ref.id}</h1><br><p>${data.user} -> ${data.post}</p>`;
+  container.innerHTML = `<h1>${data.title}</h1><br><p>${data.user} -> ${data.post}</p>`;
   
 document.body.appendChild(container);
       } else {
