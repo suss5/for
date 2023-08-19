@@ -2,7 +2,7 @@
 <html>
 
 <body>
-   <canvas id="can" width="350" height="40"></canvas>
+   <canvas id="can" width="300" height="40"></canvas>
    <textarea id="username" cols="15" placeholder="MyName"></textarea>
    <br>
 <textarea id="postContent" cols="50" placeholder="Content"></textarea>
@@ -39,12 +39,12 @@ var postcount=0
 const postsEl = document.getElementById('posts');
 // Function to handle click
 function addPost() {
-   ctx.fillText("writing",250,26)
+   ctx.fillText("writing",220,26)
 getposts()
 setTimeout(writeposts,1000)
 }
 function clear(){
-   ctx.clearRect(0,0,400,40)
+   ctx.clearRect(0,0,300,40)
    ctx.fillText("SimpleForum",0,28)
 }
 function writeposts(){
