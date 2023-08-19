@@ -7,10 +7,10 @@
    <br>
 <textarea id="postContent" cols="50" placeholder="Content"></textarea>
 <textarea id="username" cols="15" placeholder="MyName"></textarea>
-   <h1>SForu</h1>
+   <h1>SForum</h1>
    
 <div id="posts">
-   <h1>first</h1>
+   <h1>Loading...</h1>
 </div>
     <!-- Include the Firebase JavaScript SDK using ESM syntax -->
     <script type="module">
@@ -18,7 +18,13 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-analytics.js";
 import { getFirestore, collection, doc, getDoc, addDoc, setDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-firestore.js";
+const postsQuery = query(collection(db, 'topic'));
 
+// Listen for changes
+onSnapshot(postsQuery, snapshot => {
+  // Query snapshot contains updated docs
+  getPosts(); 
+});
 // Get DOM elements
 const addPostBtn = document.getElementById('addPost');
 const contentInput = document.getElementById('postContent');
