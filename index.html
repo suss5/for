@@ -3,7 +3,9 @@
 
 <body>
    <button id="addPost">Add Post</button>
-<textarea id="postContent" placeholder="Content"></textarea>
+   <br>
+<textarea id="postContent" cols="50" placeholder="Content"></textarea>
+<textarea id="username" cols="15" placeholder="MyName"></textarea>
    <h1>SimpleForum</h1>
 
     <!-- Include the Firebase JavaScript SDK using ESM syntax -->
@@ -16,7 +18,7 @@ import { getFirestore, collection, doc, getDoc, addDoc, getDocs, query, where } 
 // Get DOM elements
 const addPostBtn = document.getElementById('addPost');
 const contentInput = document.getElementById('postContent');
-
+const userN = document.getElementById('username');
 // Add event listener to button 
 addPostBtn.addEventListener('click', addPost);
 
@@ -31,7 +33,7 @@ function addPost() {
   const postsRef = collection(db, 'topic');
   addDoc(postsRef, {
     post: content,
-   user: 'anon'
+   user: userN
   });
 
 }
