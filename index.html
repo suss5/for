@@ -2,15 +2,41 @@
 <html>
 
 <body>
-   <h1>SimpleForum</h1>
+   <button id="addPost">Add Post</button>
+<textarea id="postContent" placeholder="Content"></textarea>
+   <h1>SimpleForum2</h1>
 
     <!-- Include the Firebase JavaScript SDK using ESM syntax -->
     <script type="module">
 // Import the functions you need from the SDKs
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-analytics.js";
-import { getFirestore, collection, doc, getDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-firestore.js";
+import { getFirestore, collection, doc, getDoc, addDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-firestore.js";
 
+// Get DOM elements
+const addPostBtn = document.getElementById('addPost');
+const contentInput = document.getElementById('postContent');
+
+// Add event listener to button 
+addPostBtn.addEventListener('click', addPost);
+
+// Function to handle click
+function addPost() {
+
+  // Get values
+
+  const content = contentInput.value;
+
+  // Add to Firestore
+  const postsRef = collection(db, 'posts');
+  addDoc(postsRef, {
+    post: content,
+   user: 'anon'
+  });
+
+}
+
+       
 // Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyDD3KXh4ZCUGEBz60DvT_uf9WoX5WsOaNM",
@@ -41,7 +67,7 @@ getDocs(collectionRef)
       
        
           const container = document.createElement('div');
-  container.innerHTML = `<h2>${data.title}</h2><br><p>${data.user} -> ${data.post}</p>`;
+  container.innerHTML = `<p>${data.user} -> ${data.post}</p>`;
   
 document.body.appendChild(container);
       } else {
