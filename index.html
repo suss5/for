@@ -30,7 +30,7 @@ const analytics = getAnalytics(app);
 const db = getFirestore();
 
 // Reference to the 'name' collection
-const collectionRef = collection(db, 'topics');
+const collectionRef = collection(db, 'name');
 
 // Query for all documents in the collection
 getDocs(collectionRef)
@@ -41,7 +41,8 @@ getDocs(collectionRef)
         console.log('Document data:', JSON.stringify(data) );
        
           const container = document.createElement('div');
-  container.innerHTML = `<p>${data.user} ${data.post}</p>`;
+//  container.innerHTML = `<p>${data.user} ${data.post}</p>`;
+         container.innerHTML = 'test'
 document.body.appendChild(container);
       } else {
         console.log('No such document!');
