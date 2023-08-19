@@ -38,13 +38,13 @@ var postcount=0
 const postsEl = document.getElementById('posts');
 // Function to handle click
 function addPost() {
-   ctx.fillText("writing",250,25)
+   ctx.fillText("writing",250,26)
 getposts()
 setTimeout(writeposts,1000)
 }
 function clear(){
    ctx.clearRect(0,0,400,40)
-   ctx.fillText("SimpleForum",0,25)
+   ctx.fillText("SimpleForum",0,28)
 }
 function writeposts(){
   const content = contentInput.value;
