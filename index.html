@@ -35,6 +35,9 @@ getDocs(collectionRef)
         console.log('Document data:', data);
         console.log('First Name:', data.first);
         console.log('Last Name:', data.last);
+          const container = document.createElement('div');
+  container.innerHTML = `<p>${data.first} ${data.last}</p>`;
+document.body.appendChild(container);
       } else {
         console.log('No such document!');
       }
