@@ -19,7 +19,7 @@
 // Import the functions you need from the SDKs
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-analytics.js";
-import { getFirestore, collection, doc, getDoc, addDoc, setDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-firestore.js";
+import { getFirestore, collection, onSnapshot, doc, getDoc, addDoc, setDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-firestore.js";
   const c = document.getElementById('can');
     const ctx = c.getContext('2d');
        /* Listen for changes
@@ -82,13 +82,11 @@ const db = getFirestore();
 // Reference to the 'name' collection
 const collectionRef = collection(db, 'topic');
 getposts()
-setInterval(testposts,5000)
+//setInterval(testposts,5000)
+const unsubscribe = onSnapshot(collectionRef, (querySnapshot) => { getposts() })
 function testposts(){
    getDocs(collectionRef)
   .then((querySnapshot) => {
-    // Get the number of documents in the collection
-
-    // Now you can decide whether to reload the posts based on your logic
     if (querySnapshot.size> postcount) {
       getposts();
     }
