@@ -7,7 +7,7 @@
    <br>
 <textarea id="postContent" cols="50" placeholder="Content"></textarea>
 <textarea id="username" cols="15" placeholder="MyName"></textarea>
-   <h1>SimForum</h1>
+   <h1>SimFor</h1>
    
 <div id="posts">
    <h1>Loading...</h1>
@@ -36,6 +36,9 @@ const postsEl = document.getElementById('posts');
 // Function to handle click
 function addPost() {
 getposts()
+setTimeout(writeposts,1000)
+}
+function writeposts(){
   const content = contentInput.value;
 
   // Add to Firestore
