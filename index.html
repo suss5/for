@@ -4,7 +4,7 @@
 <body>
    <button id="addPost">Add Post</button>
 <textarea id="postContent" placeholder="Content"></textarea>
-   <h1>SimpleForum2</h1>
+   <h1>SimpleForum</h1>
 
     <!-- Include the Firebase JavaScript SDK using ESM syntax -->
     <script type="module">
@@ -28,7 +28,7 @@ function addPost() {
   const content = contentInput.value;
 
   // Add to Firestore
-  const postsRef = collection(db, 'posts');
+  const postsRef = collection(db, 'topic');
   addDoc(postsRef, {
     post: content,
    user: 'anon'
