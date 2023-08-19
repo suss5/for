@@ -6,7 +6,7 @@
    <br>
 <textarea id="postContent" cols="50" placeholder="Content"></textarea>
 <textarea id="username" cols="15" placeholder="MyName"></textarea>
-   <h1>SimFor</h1>
+   <h1>SimF</h1>
 
     <!-- Include the Firebase JavaScript SDK using ESM syntax -->
     <script type="module">
@@ -31,10 +31,11 @@ function addPost() {
 
   // Add to Firestore
   const postsRef = collection(db, 'topic');
+const newId=(postcount+1).toString();
   addDoc(postsRef, {
     post: content,
    user: userN.value
-  }, (postcount+1).toString() );
+  }, newId );
 getposts()
 }
 
