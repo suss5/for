@@ -6,7 +6,7 @@
    <br>
 <textarea id="postContent" cols="50" placeholder="Content"></textarea>
 <textarea id="username" cols="15" placeholder="MyName"></textarea>
-   <h1>SFor</h1>
+   <h1>SForm</h1>
 
     <!-- Include the Firebase JavaScript SDK using ESM syntax -->
     <script type="module">
@@ -30,7 +30,7 @@ function addPost() {
   const content = contentInput.value;
 
   // Add to Firestore
- const newId=(postcount+1).toString();
+ const newId=(postcount+1).toString().padStart(6, '0');;
    const docRef = doc(collection(db, 'topic'), newId )
 
    setDoc(docRef, {
@@ -71,7 +71,7 @@ getDocs(collectionRef)
       if (doc.exists()) {
         const data = doc.data();
       postcount++;
-       
+       document.body.innerHTML = '';
           const container = document.createElement('div');
   container.innerHTML = `<p>${postcount} ${data.user} -> ${data.post}</p>`;
   
