@@ -21,7 +21,7 @@ const contentInput = document.getElementById('postContent');
 const userN = document.getElementById('username');
 // Add event listener to button 
 addPostBtn.addEventListener('click', addPost);
-
+var postcount=0
 // Function to handle click
 function addPost() {
 
@@ -68,7 +68,7 @@ getDocs(collectionRef)
     querySnapshot.forEach((doc) => {
       if (doc.exists()) {
         const data = doc.data();
-      postcount++
+      postcount++;
        
           const container = document.createElement('div');
   container.innerHTML = `<p>${postcount} ${data.user} -> ${data.post}</p>`;
