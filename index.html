@@ -2,7 +2,7 @@
 <html>
 
 <body>
-   <p>Forum2</p>
+   <p>Forum3</p>
 
     <!-- Include the Firebase JavaScript SDK using ESM syntax -->
     <script type="module">
@@ -30,7 +30,7 @@ const analytics = getAnalytics(app);
 const db = getFirestore();
 
 // Reference to the 'name' collection
-const collectionRef = collection(db, 'name');
+const collectionRef = collection(db, 'topics');
 
 // Query for all documents in the collection
 getDocs(collectionRef)
@@ -38,11 +38,10 @@ getDocs(collectionRef)
     querySnapshot.forEach((doc) => {
       if (doc.exists()) {
         const data = doc.data();
-        console.log('Document data:', data);
-        console.log('First Name:', data.first);
-        console.log('Last Name:', data.last);
+        console.log('Document data:', JSON.stringify(data) );
+       
           const container = document.createElement('div');
-  container.innerHTML = `<p>${data.first} ${data.last}</p>`;
+  container.innerHTML = `<p>${data.user} ${data.post}</p>`;
 document.body.appendChild(container);
       } else {
         console.log('No such document!');
