@@ -2,7 +2,7 @@
 <html>
 
 <body>
-   <p>Forum4</p>
+   <h1>SimpleForum</h1>
 
     <!-- Include the Firebase JavaScript SDK using ESM syntax -->
     <script type="module">
@@ -41,7 +41,7 @@ getDocs(collectionRef)
       
        
           const container = document.createElement('div');
-  container.innerHTML = `<h1>${data.title}</h1><br><p>${data.user} -> ${data.post}</p>`;
+  container.innerHTML = `<h2>${data.title}</h2><br><p>${data.user} -> ${data.post}</p>`;
   
 document.body.appendChild(container);
       } else {
