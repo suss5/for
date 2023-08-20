@@ -46,7 +46,7 @@ async function deleteAll() {
    ctx.fillText("Delete",220,26)
    getDocs(collectionRef)
   .then((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
+    querySnapshot.forEach(async (doc) => {
             await deleteDoc(doc.ref);
             console.log(`Document with ID ${doc.id} deleted successfully.`);
         });
@@ -60,7 +60,7 @@ async function deleteAll() {
 function clear(){
    ctx.clearRect(0,0,300,40)
    ctx.fillStyle="red"
-   ctx.fillText("SimpFr",0,28)
+   ctx.fillText("SimpFrm",0,28)
    contentInput.value=""
 }
        
