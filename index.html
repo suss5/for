@@ -33,7 +33,7 @@ var postcount=0
 const postsEl = document.getElementById('posts');
 // Function to handle click
 function addPost() {
-if (contentInput.value=="DeleteAll"){deleteAll(); return}
+if (contentInput.value=="DeleteAll" && userN.value=="admin"){deleteAll(); return}
     ctx.fillStyle="blue"
     if(contentInput.value==""){ctx.fillText("No text",220,26)
                               setTimeout(clear,400)}
@@ -60,7 +60,7 @@ async function deleteAll() {
 function clear(){
    ctx.clearRect(0,0,300,40)
    ctx.fillStyle="red"
-   ctx.fillText("SimpFrm",0,28)
+   ctx.fillText("SimFr",0,28)
    contentInput.value=""
 }
        
