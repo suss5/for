@@ -67,7 +67,7 @@ async function deleteAll() {
 function clear(){
    ctx.clearRect(0,0,300,40)
    ctx.fillStyle="red"
-   ctx.fillText("SimF",0,28)
+   ctx.fillText("SimFor",0,28)
    contentInput.value=""
 }
        
@@ -108,7 +108,7 @@ async function getposts(){
     
 function showPost(usenm,posttxt){
  const container = document.createElement('div');
- container.innerHTML = `<p>${usenm} -> ${posttxt}</p>`;  
+ container.innerHTML = `<p style="background-color: blue">${usenm} -> ${posttxt}</p>`;  
  postsEl.appendChild(container);
 }
        
