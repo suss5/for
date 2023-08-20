@@ -74,14 +74,11 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-
-// Reference to Firestore
 const db = getFirestore();
 
-// Reference to the 'name' collection
 const collectionRef = collection(db, 'topic');
 getposts()
-//setInterval(testposts,5000)
+
 const unsubscribe = onSnapshot(collectionRef, (querySnapshot) => { getposts() })
 function testposts(){
    getDocs(collectionRef)
@@ -96,14 +93,7 @@ function testposts(){
 }
 function getposts(){
    postcount=0
-// Query for all documents in the collection
-
-
-// Clear innerHTML  
 postsEl.innerHTML = ''; 
-
-
-// Append to wrapper div 
 
 getDocs(collectionRef)
   .then((querySnapshot) => {
