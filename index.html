@@ -46,7 +46,7 @@ function addPost() {
    else{
    ctx.fillText("writing",220,26)
    getposts()
-   setTimeout(writeposts,1000) }
+   setTimeout(writeposts,100) }
 }
 
 async function deleteAll() {
@@ -71,13 +71,13 @@ function clear(){
    contentInput.value=""
 }
        
-function writeposts(){
+async function writeposts(){
   const content = contentInput.value;
   var usN = userN.value
   if(usN==""){usN="Anonymous"}
   const newId=(postcount+1).toString().padStart(6, '0');;
   const docRef = doc(collection(db, 'topic'), newId )
-  setDoc(docRef, {
+  await setDoc(docRef, {
     post: content,
    user: usN
   } );
@@ -86,10 +86,10 @@ function writeposts(){
 
 
 
-function getposts(){
+async function getposts(){
    postcount=0
    postsEl.innerHTML = ''; 
-   getDocs(collectionRef)
+   await getDocs(collectionRef)
    .then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
       if (doc.exists()) {
