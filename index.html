@@ -1,47 +1,54 @@
 <!DOCTYPE html>
 <html>
-
-<body>
+ <body>
    <canvas id="can" width="300" height="35"></canvas>
    <textarea id="username" cols="15" placeholder="MyName"></textarea>
    <br>
-<textarea id="postContent" cols="60" rows="2" placeholder="Content"></textarea>
-
+   <textarea id="postContent" cols="60" rows="2" placeholder="Content"></textarea>
    <button id="addPost" style="font-size: 24px;">Add Post</button>
-
-   
-<div id="posts">
-   <h1>Loading...</h1>
-</div>
-    <!-- Include the Firebase JavaScript SDK using ESM syntax -->
-    <script type="module">
-// Import the functions you need from the SDKs
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-analytics.js";
-import { getFirestore, collection, onSnapshot, deleteDoc, doc, getDoc, addDoc, setDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-firestore.js";
+ <div id="posts">
+   <h1>Loading ..</h1>
+ </div>
+    
+ <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-analytics.js";
+  import { getFirestore, collection, onSnapshot, deleteDoc, doc, getDoc, addDoc, setDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-firestore.js";
   const c = document.getElementById('can');
   const ctx = c.getContext('2d');
- ctx.font = "2vw Arial";
+  ctx.font = "2vw Arial";
+  const firebaseConfig = {
+    apiKey: "AIzaSyDD3KXh4ZCUGEBz60DvT_uf9WoX5WsOaNM",
+    authDomain: "mytest-abc123.firebaseapp.com",
+    projectId: "mytest-abc123",
+    storageBucket: "mytest-abc123.appspot.com",
+    messagingSenderId: "786493299627",
+    appId: "1:786493299627:web:78bb525b6d7210220a90ee",
+    measurementId: "G-S3MBVPEV94" };
+  const addPostBtn = document.getElementById('addPost');
+  const contentInput = document.getElementById('postContent');
+  const userN = document.getElementById('username');
+  addPostBtn.addEventListener('click', addPost);
+  var postcount=0
+  const postsEl = document.getElementById('posts');
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const db = getFirestore();
+  const collectionRef = collection(db, 'topic');
+  const unsubscribe = onSnapshot(collectionRef, (querySnapshot) => { getposts() })
 
-// Get DOM elements
-const addPostBtn = document.getElementById('addPost');
-const contentInput = document.getElementById('postContent');
-const userN = document.getElementById('username');
-// Add event listener to button 
-addPostBtn.addEventListener('click', addPost);
-var postcount=0
-const postsEl = document.getElementById('posts');
-// Function to handle click
+
 function addPost() {
-if (contentInput.value=="DeleteAll" && userN.value=="admin"){deleteAll(); return}
-    ctx.fillStyle="blue"
-    if(contentInput.value==""){ctx.fillText("No text",220,26)
+   if (contentInput.value=="DeleteAll" && userN.value=="admin"){deleteAll(); return}
+   ctx.fillStyle="blue"
+   if(contentInput.value==""){ctx.fillText("No text",220,26)
                               setTimeout(clear,400)}
    else{
    ctx.fillText("writing",220,26)
    getposts()
    setTimeout(writeposts,1000) }
 }
+
 async function deleteAll() {
    ctx.fillText("Delete",220,26)
    getDocs(collectionRef)
@@ -60,7 +67,7 @@ async function deleteAll() {
 function clear(){
    ctx.clearRect(0,0,300,40)
    ctx.fillStyle="red"
-   ctx.fillText("SimFr",0,28)
+   ctx.fillText("SimF",0,28)
    contentInput.value=""
 }
        
@@ -68,56 +75,22 @@ function writeposts(){
   const content = contentInput.value;
   const usN = userN.value
   if(usN==""){usN="Anonymous"}
-
- const newId=(postcount+1).toString().padStart(6, '0');;
-   const docRef = doc(collection(db, 'topic'), newId )
-
-   setDoc(docRef, {
+  const newId=(postcount+1).toString().padStart(6, '0');;
+  const docRef = doc(collection(db, 'topic'), newId )
+  setDoc(docRef, {
     post: content,
    user: usN
   } );
-setTimeout(clear,200)
-//showPost(userN.value,content)
+  setTimeout(clear,200)
 }
 
-       
-// Your web app's Firebase configuration
-const firebaseConfig = {
-    apiKey: "AIzaSyDD3KXh4ZCUGEBz60DvT_uf9WoX5WsOaNM",
-            authDomain: "mytest-abc123.firebaseapp.com",
-            projectId: "mytest-abc123",
-            storageBucket: "mytest-abc123.appspot.com",
-            messagingSenderId: "786493299627",
-            appId: "1:786493299627:web:78bb525b6d7210220a90ee",
-            measurementId: "G-S3MBVPEV94"
-};
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const db = getFirestore();
 
-const collectionRef = collection(db, 'topic');
-getposts()
-
-const unsubscribe = onSnapshot(collectionRef, (querySnapshot) => { getposts() })
-function testposts(){
-   getDocs(collectionRef)
-  .then((querySnapshot) => {
-    if (querySnapshot.size> postcount) {
-      getposts();
-    }
-  })
-  .catch((error) => {
-    console.error('Error counting documents: ', error);
-  });
-}
 function getposts(){
    postcount=0
-postsEl.innerHTML = ''; 
-
-getDocs(collectionRef)
-  .then((querySnapshot) => {
+   postsEl.innerHTML = ''; 
+   getDocs(collectionRef)
+   .then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
       if (doc.exists()) {
         const data = doc.data();
@@ -132,6 +105,7 @@ getDocs(collectionRef)
     console.log('Error getting documents:', error);
   });
 }
+    
 function showPost(usenm,posttxt){
  const container = document.createElement('div');
  container.innerHTML = `<p>${usenm} -> ${posttxt}</p>`;  
@@ -139,6 +113,20 @@ function showPost(usenm,posttxt){
 }
        
 clear()
+getposts()
+
+    
+/* function testposts(){
+   getDocs(collectionRef)
+  .then((querySnapshot) => {
+    if (querySnapshot.size> postcount) {
+      getposts();
+    }
+  })
+  .catch((error) => {
+    console.error('Error counting documents: ', error);
+  });
+} */
     </script>
 </body>
 </html>
