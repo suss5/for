@@ -44,9 +44,10 @@ if (contentInput.value=="DeleteAll"){deleteAll(); return}
 }
 function deleteAll() {
    ctx.fillText("Deleting",220,26)
-    collectionRef.get()
-        .then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
+   getDocs(collectionRef)
+  .then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+
                 doc.ref.delete().then(() => {
                     console.log(`Document with ID ${doc.id} deleted successfully.`);
                 }).catch((error) => {
