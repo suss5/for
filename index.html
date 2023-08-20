@@ -46,6 +46,7 @@ function clear(){
    ctx.clearRect(0,0,300,40)
    ctx.fillStyle="red"
    ctx.fillText("SimpForum",0,28)
+   contentInput.value=""
 }
        
 function writeposts(){
@@ -60,7 +61,7 @@ function writeposts(){
     post: content,
    user: userN.value
   } );
-setTimeout(clear,100)
+setTimeout(clear,200)
 //showPost(userN.value,content)
 }
 
