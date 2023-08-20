@@ -42,12 +42,12 @@ if (contentInput.value=="DeleteAll"){deleteAll(); return}
    getposts()
    setTimeout(writeposts,1000) }
 }
-function deleteAll() {
-   ctx.fillText("Deleting",220,26)
+async function deleteAll() {
+   ctx.fillText("Delete",220,26)
    getDocs(collectionRef)
   .then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
-            deleteDoc(doc.ref);
+            await deleteDoc(doc.ref);
             console.log(`Document with ID ${doc.id} deleted successfully.`);
         });
         })
@@ -60,7 +60,7 @@ function deleteAll() {
 function clear(){
    ctx.clearRect(0,0,300,40)
    ctx.fillStyle="red"
-   ctx.fillText("SimpFor",0,28)
+   ctx.fillText("SimpFr",0,28)
    contentInput.value=""
 }
        
