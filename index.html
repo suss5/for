@@ -47,7 +47,7 @@ function deleteAll() {
    getDocs(collectionRef)
   .then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
-            await deleteDoc(doc.ref);
+            deleteDoc(doc.ref);
             console.log(`Document with ID ${doc.id} deleted successfully.`);
         });
         })
