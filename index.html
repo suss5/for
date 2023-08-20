@@ -66,15 +66,15 @@ function clear(){
        
 function writeposts(){
   const content = contentInput.value;
- 
-  if(userN.value==""){userN.value="Anonymous"}
+  const usN = userN.value
+  if(usN==""){usN="Anonymous"}
 
  const newId=(postcount+1).toString().padStart(6, '0');;
    const docRef = doc(collection(db, 'topic'), newId )
 
    setDoc(docRef, {
     post: content,
-   user: userN.value
+   user: usN
   } );
 setTimeout(clear,200)
 //showPost(userN.value,content)
