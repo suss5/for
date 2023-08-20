@@ -32,11 +32,15 @@ addPostBtn.addEventListener('click', addPost);
 var postcount=0
 const postsEl = document.getElementById('posts');
 // Function to handle click
-function addPost() {
-   ctx.fillStyle="blue"
+function addPost(e) {
+   e.preventDefault()
+    ctx.fillStyle="blue"
+    if(contentInput.value==""){ctx.fillText("No text",220,26)
+                              setTimeout(clear,400)}
+   else{
    ctx.fillText("writing",220,26)
-getposts()
-setTimeout(writeposts,1000)
+   getposts()
+   setTimeout(writeposts,1000) }
 }
 function clear(){
    ctx.clearRect(0,0,300,40)
@@ -46,7 +50,7 @@ function clear(){
        
 function writeposts(){
   const content = contentInput.value;
-  if(content==""){return}
+ 
   if(userN.value==""){userN.value="Anonymous"}
 
  const newId=(postcount+1).toString().padStart(6, '0');;
