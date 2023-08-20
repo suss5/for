@@ -34,12 +34,14 @@ var postcount=0
 const postsEl = document.getElementById('posts');
 // Function to handle click
 function addPost() {
+   ctx.fillStyle="blue"
    ctx.fillText("writing",220,26)
 getposts()
 setTimeout(writeposts,1000)
 }
 function clear(){
    ctx.clearRect(0,0,300,40)
+   ctx.fillStyle="red"
    ctx.fillText("SimpForum",0,28)
 }
 function writeposts(){
@@ -119,7 +121,7 @@ getDocs(collectionRef)
     console.log('Error getting documents:', error);
   });
 }
-function showPost(usen,posttxt){
+function showPost(usenm,posttxt){
  const container = document.createElement('div');
  container.innerHTML = `<p>${usenm} -> ${posttxt}</p>`;  
  postsEl.appendChild(container);
