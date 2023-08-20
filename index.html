@@ -43,10 +43,12 @@ function clear(){
    ctx.fillStyle="red"
    ctx.fillText("SimpForum",0,28)
 }
+       
 function writeposts(){
   const content = contentInput.value;
+  if(content==""){return}
+  if(userN.value==""){userN.value="Anonymous"}
 
-  // Add to Firestore
  const newId=(postcount+1).toString().padStart(6, '0');;
    const docRef = doc(collection(db, 'topic'), newId )
 
@@ -55,7 +57,7 @@ function writeposts(){
    user: userN.value
   } );
 setTimeout(clear,100)
-showPost(userN.value,content)
+//showPost(userN.value,content)
 }
 
        
