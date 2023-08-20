@@ -2,10 +2,10 @@
 <html>
 
 <body>
-   <canvas id="can" width="300" height="40"></canvas>
+   <canvas id="can" width="300" height="35"></canvas>
    <textarea id="username" cols="15" placeholder="MyName"></textarea>
    <br>
-<textarea id="postContent" cols="50" placeholder="Content"></textarea>
+<textarea id="postContent" cols="60" placeholder="Content"></textarea>
 
 <br>
    <button id="addPost" style="font-size: 20px;">Add New Post</button>
@@ -22,13 +22,8 @@ import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.2.0/firebase
 import { getFirestore, collection, onSnapshot, doc, getDoc, addDoc, setDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-firestore.js";
   const c = document.getElementById('can');
   const ctx = c.getContext('2d');
- ctx.font = "3vw Arial";
-       /* Listen for changes
-const postsQuery = query(collection(db, 'topic'));
-onSnapshot(postsQuery, snapshot => {
-  // Query snapshot contains updated docs
-  getPosts(); 
-}); */
+ ctx.font = "2vw Arial";
+
 // Get DOM elements
 const addPostBtn = document.getElementById('addPost');
 const contentInput = document.getElementById('postContent');
@@ -45,7 +40,7 @@ setTimeout(writeposts,1000)
 }
 function clear(){
    ctx.clearRect(0,0,300,40)
-   ctx.fillText("SimpleForum",0,28)
+   ctx.fillText("SimpForum",0,28)
 }
 function writeposts(){
   const content = contentInput.value;
@@ -59,7 +54,7 @@ function writeposts(){
    user: userN.value
   } );
 setTimeout(clear,100)
-setTimeout(getposts,1000)
+showPost(userN.value,content)
 }
 
        
@@ -114,11 +109,7 @@ getDocs(collectionRef)
       if (doc.exists()) {
         const data = doc.data();
       postcount++;
-    
-          const container = document.createElement('div');
-  container.innerHTML = `<p>${postcount} ${data.user} -> ${data.post}</p>`;
-  
-postsEl.appendChild(container);
+     showPost(data.user,data.post)        
       } else {
         console.log('No such document!');
       }
@@ -128,7 +119,12 @@ postsEl.appendChild(container);
     console.log('Error getting documents:', error);
   });
 }
-
+function showPost(usen,posttxt){
+ const container = document.createElement('div');
+ container.innerHTML = `<p>${usenm} -> ${posttxt}</p>`;  
+ postsEl.appendChild(container);
+}
+       
 clear()
     </script>
 </body>
