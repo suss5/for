@@ -73,7 +73,7 @@ function clear(){
        
 function writeposts(){
   const content = contentInput.value;
-  const usN = userN.value
+  var usN = userN.value
   if(usN==""){usN="Anonymous"}
   const newId=(postcount+1).toString().padStart(6, '0');;
   const docRef = doc(collection(db, 'topic'), newId )
