@@ -32,8 +32,8 @@ addPostBtn.addEventListener('click', addPost);
 var postcount=0
 const postsEl = document.getElementById('posts');
 // Function to handle click
-function addPost(e) {
-   e.preventDefault()
+function addPost() {
+if (contentInput.value=="DeleteAll"){deleteAll(); return}
     ctx.fillStyle="blue"
     if(contentInput.value==""){ctx.fillText("No text",220,26)
                               setTimeout(clear,400)}
@@ -42,6 +42,24 @@ function addPost(e) {
    getposts()
    setTimeout(writeposts,1000) }
 }
+function deleteAll() {
+   ctx.fillText("Deleting",220,26)
+    collectionRef.get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                doc.ref.delete().then(() => {
+                    console.log(`Document with ID ${doc.id} deleted successfully.`);
+                }).catch((error) => {
+                    console.error(`Error deleting document: ${error}`);
+                });
+            });
+        })
+        .catch((error) => {
+            console.error(`Error getting documents: ${error}`);
+        });
+   clear()
+}
+       
 function clear(){
    ctx.clearRect(0,0,300,40)
    ctx.fillStyle="red"
